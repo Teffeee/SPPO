@@ -4,18 +4,18 @@
 
 using namespace std;
 
-double f1(double n) {
+double f1(double x) {
 	double v;
-	if (n < 0)
-		v = sin(n) * sin(n) + cos(n) * cos(n);
+	if (x < 0)
+		v = sin(x) * sin(x) + cos(x) * cos(x);
 	else
-		v = sin(n * n);
+		v = sin(x * x);
 	return v;
 }
 
-double f2(double& x) {
-	x = f1(x);
-	return x;
+double f2(double& n) {
+	n = f1(n);
+	return n;
 }
 
 int main() {
