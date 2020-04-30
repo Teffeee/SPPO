@@ -1,69 +1,79 @@
-﻿#include <iostream>
+﻿#include <iostream> 
+
 using namespace std;
-struct TreeElement
+
+struct Tree
 {
 	int value;
-	TreeElement* right;
-	TreeElement* left;
-	TreeElement()
+	Tree* right;
+	Tree* left;
+
+	Tree()
 	{
-		value = -1;
+		value = 0;
 		right = NULL;
 		left = NULL;
 	}
 };
-struct ListElement
-{
+
+struct spis {
 	int value;
-	ListElement* pointer;
-	ListElement()
-	{
-		value = -1;
+	spis* pointer;
+	spis() {
+		value = 0;
 		pointer = NULL;
 	}
 };
-void Input(TreeElement*& el, int X)
+
+
+void Input(Tree*& el, int v)
 {
 	if (el == NULL)
 	{
-		el = new TreeElement();
-		el->value = X;
+		el = new Tree();
+		el->value = v;
 	}
-	else if (el->value > X)
+	else if (el->value > v)
 	{
-		Input(el->left, X);
+		Input(el->left, v);
 	}
-	else if (el->value < X)
+	else if (el->value < v)
 	{
-		Input(el->right, X);
+		Input(el->right, v);
 	}
 }
-void Output(TreeElement* el)
+
+void Output(Tree* el)
 {
 	if (el != NULL)
 	{
-		cout << "(";
 		Output(el->left);
 		cout << el->value << " ";
 		Output(el->right);
-		cout << ")";
 	}
-	else
-	{
-		cout << ".";
-	}
+
 }
-void Detach(TreeElement* root, TreeElement* el)
+
+void Detach(Tree* root, Tree* el)
 {
-	if (root == NULL || el == NULL) { return; }
-	else if (root->left == el) { root->left = NULL; }
-	else if (root->right == el) { root->right = NULL; }
+	if (root == NULL || el == NULL)
+	{
+		return;
+	}
+	else if (root->left == el)
+	{
+		root->left = NULL;
+	}
+	else if (root->right == el)
+	{
+		root->right = NULL;
+	}
 	{
 		Detach(root->left, el);
 		Detach(root->right, el);
 	}
 }
-void Remove(TreeElement* el)
+void Remove(Tree* el)
 {
 	if (el != NULL)
 	{
@@ -72,69 +82,66 @@ void Remove(TreeElement* el)
 		delete el;
 	}
 }
-TreeElement* Find(TreeElement* el, int v)
+Tree* Find(Tree* el, int v)
 {
-	TreeElement* result = NULL;
-	if (el == NULL) { result = NULL; }
-	else if (el->value == v) { result = el; }
+	Tree* result = NULL;
+	if (el == NULL)
+	{
+		result = NULL;
+	}
+	else if (el->value == v)
+	{
+		result = el;
+	}
 	else
 	{
 		result = Find(el->left, v);
-		if (result == NULL) { result = Find(el->right, v); }
+		if (result == NULL)
+		{
+			result = Find(el->right, v);
+		}
 	}
 	return result;
 }
-void Spisok(ListElement*& one, TreeElement* el, ListElement*& p)
-{
-	if (el != NULL)
+
+int main() {
+	Tree* root = NULL;
+	spis* first = NULL;
+	cout << "Vvedite kolichestvo dereva = ";
+	int n, x;
+	cin >> n;
+	cout << "Vvedite elementi dereva = ";
+	for (int i = 0; i < n; i++)
 	{
-		Spisok(one, el->left, p);
-		ListElement* p1 = new ListElement();
-		p1->value = el->value;
-		if (p == NULL) {
-			one = p1;
-			p = p1;
-		}
-		else {
-			p->pointer = p1;
-			p = p1;
-		}
-		Spisok(one, el->right, p);
-	}
-}
-void OutputList(ListElement* l) {
-	while (l != NULL) {
-		cout << l->value << " ";
-		l = l->pointer;
+		cin >> x;
+		Input(root, x);
 	}
 	cout << endl;
-}
-int main() {
-	TreeElement* root = NULL;
-	ListElement* first = NULL;
-	int N = 0, el;
-	cout << "Введите длину элементов ";
-	cin >> N;
-	cout << "Введите элементы ";
-	for (int i = 0; i < N; i++) {
-		cin >> el;
-		Input(root, el);
-	}
+	cout << "Derevo: ";
 	Output(root);
 	cout << endl;
-	int n;
-	cout << "Введите элемент, поддерево которого вы хотите удалить ";
-	cin >> n;
 
-	TreeElement* e = Find(root, n);
+	int ud;
+	cout << endl;
+	cout << "VVedite koren kotoriy udaliti = ";
+	cin >> ud;
+	Tree* e = Find(root, ud);
 	Detach(root, e);
 	Remove(e);
+	cout << endl;
+	cout << "Derevo bes kornya: ";
 	Output(root);
 	cout << endl;
 
-	cout << "Список ";
-	ListElement* l = NULL;
-	Spisok(first, root, l);
-	OutputList(first);
-	return 0;
+	Tree* e1 = Find(root, ud);
+	Detach(root, e1);
+	Remove(e1);
+	cout << endl;
+	cout << endl;
+	cout << "Dopolnitelinay proverka " << endl;
+	cout << "Derevo bes kornya: ";
+	Output(root);
+	cout << endl;
+
+	system("pause");
 }
