@@ -43,17 +43,17 @@ int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	int N;
+	int X;
 	double a;
 	element* first = NULL;
 	element* p = first;
 
 	//Ввод списка
 	cout << "Введите длину списка ";
-	cin >> N;
+	cin >> X;
 	int i = 0;
 	cout << "Введите каждый элемент ";
-	while (i < N) {
+	while (i < X) {
 		cin >> a;
 		element* p1 = new element();
 		p1->value = a;
@@ -76,7 +76,7 @@ int main() {
 	} while (p != NULL);
 	cout << endl;
 
-	f1(N, first);
+	f1(X, first);
 
 	system("pause");
 	return 0;
