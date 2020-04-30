@@ -27,20 +27,20 @@ int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	double N = 0;
+	double X = 0;
 
 	cout << "Введите длину массива ";
-	cin >> N;
+	cin >> X;
 
-	double* mas = new double[N];
+	double* mas = new double[X];
 
 	cout << "Введите элементы массива " << endl;
 
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < X; i++) {
 		cin >> mas[i];
 	}
 
-	f1(mas, N);
+	f1(mas, X);
 
 	cout << endl;
 
